@@ -11,7 +11,14 @@ def cosine_similarity(v1: torch.Tensor, v2: torch.Tensor) -> float:
         float: The cosine similarity of the two vectors.
     """
     # Implement your code here
-    dot = torch.dot(v1, v2)
-    norma = (v1 ** 2).sum().sqrt()
-    normb = (v2 ** 2).sum().sqrt()
-    return (dot / (norma * normb)).item()
+    # v1 = v1.float()
+    # v2 = v2.float()
+    v1 = v1.to(dtype = torch.float)
+    v2 = v2.to(dtype = torch.float)
+    res = F.cosine_similarity(v1, v2, -1)
+    return res.item()
+
+v1 = torch.tensor([1, 2, 3])
+v2 = torch.tensor([2, 4, 6])
+result = cosine_similarity(v1, v2)
+print(round(result, 3))
